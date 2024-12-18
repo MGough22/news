@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Article } from "./Article";
+import { hatch } from "ldrs";
+
+hatch.register();
 
 export const ArticleList = () => {
   const [articles, setArticles] = useState(null);
@@ -29,7 +32,12 @@ export const ArticleList = () => {
     fetchArticles();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="loading-anim">
+        <l-hatch size="150" stroke="4" speed="3.5" color="black"></l-hatch>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
   if (!isLoading) {
     return (

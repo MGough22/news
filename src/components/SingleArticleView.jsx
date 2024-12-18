@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { formatCreatedAtDate } from "../utils/formatDate";
 import { Comment } from "./Comment";
+import { hatch } from "ldrs";
+
+hatch.register();
+
 export const SingleArticleView = () => {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState(null);
@@ -39,7 +43,12 @@ export const SingleArticleView = () => {
     fetchArticleData();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="loading-anim">
+        <l-hatch size="150" stroke="4" speed="3.5" color="black"></l-hatch>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
   if (!isLoading) {
     // console.log(comments[0]);

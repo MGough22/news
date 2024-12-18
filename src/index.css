@@ -135,3 +135,9 @@ a {
 .article-and-comments h2 {
   padding-inline: 10vw;
 }
+
+.loading-anim {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
