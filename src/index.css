@@ -77,3 +77,61 @@ a {
 .footer {
   text-align: center;
 }
+
+/* .comments-view {
+  display: flex;
+  /* flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0; */
+/* justify-content: space-around; */
+/* flex-direction: column;
+  align-items: center;
+}
+
+.comment-instance {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+} */
+
+.comments-view {
+  padding-inline: 10vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* justify-items: center; */
+  justify-items: flex-start;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-around; */
+  /* margin-inline-start: 70px;
+  margin-inline-end: 70px; */
+  /* margin-inline-start: 0vw;
+  margin-inline-end: 0vw; */
+}
+
+.comment-instance {
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  /* box-shadow: 5px 5px 5px hsl(0, 0%, 0%, 0.1); */
+  padding: 16px;
+  margin: 10px;
+  /* text-align: center; */
+  max-width: 250px;
+  height: auto;
+  display: inline-block;
+  cursor: pointer;
+  transition: border-color, background-color 0.25s;
+}
+
+.comment-instance:hover {
+  border-color: hsla(186, 27%, 22%, 0.1);
+  background-color: hsla(186, 27%, 22%, 0.09);
+}
+
+.single-article-view {
+  padding-inline: 10vw;
+}
+
+.article-and-comments h2 {
+  padding-inline: 10vw;
+}

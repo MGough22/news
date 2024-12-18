@@ -1,11 +1,6 @@
 import { Link } from "react-router";
+import { formatCreatedAtDate } from "../utils/formatDate";
 export const Article = ({ articleObject }) => {
-  const date = new Date(articleObject.created_at);
-  const formattedDate = date.toLocaleString("en-GB", {
-    dateStyle: "long",
-    timeStyle: "short",
-    timeZone: "GMT",
-  });
   const articleLink = `/articles/${articleObject.article_id}`;
   return (
     <div className="article-instance">
@@ -19,7 +14,7 @@ export const Article = ({ articleObject }) => {
         <div className="other-info">
           <p>Author : {articleObject.author}</p>
           <p>Topic : {articleObject.topic}</p>
-          <p>Created : {formattedDate}</p>
+          <p>Created : {formatCreatedAtDate(articleObject.created_at)}</p>
           <p>comments : {articleObject.comment_count}</p>
           <p>votes : {articleObject.votes}</p>
         </div>
