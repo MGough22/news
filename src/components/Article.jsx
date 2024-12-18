@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 export const Article = ({ articleObject }) => {
   const date = new Date(articleObject.created_at);
   const formattedDate = date.toLocaleString("en-GB", {
@@ -8,7 +9,7 @@ export const Article = ({ articleObject }) => {
   const articleLink = `/articles/${articleObject.article_id}`;
   return (
     <div className="article-instance">
-      <a href={articleLink}>
+      <Link to={articleLink}>
         <img
           src={articleObject.article_img_url}
           alt={`Image of ${articleObject.title}`}
@@ -22,7 +23,7 @@ export const Article = ({ articleObject }) => {
           <p>comments : {articleObject.comment_count}</p>
           <p>votes : {articleObject.votes}</p>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

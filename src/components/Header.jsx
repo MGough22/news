@@ -1,11 +1,14 @@
+import { Link } from "react-router";
 export const Header = () => {
   return (
     <>
-      <h1 className="main-title">RES BOREALIS</h1>
+      <Link to="/">
+        <h1 className="main-title">RES BOREALIS</h1>
+      </Link>
       <nav>
         <ul className="links-list">
           <li>
-            <a href="/">Articles</a>
+            <Link to="/">Articles</Link>
           </li>
           <li>
             <a href="#">Authors</a>
