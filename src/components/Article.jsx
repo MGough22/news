@@ -5,21 +5,24 @@ export const Article = ({ articleObject }) => {
     timeStyle: "short",
     timeZone: "GMT",
   });
+  const articleLink = `/articles/${articleObject.article_id}`;
   return (
     <div className="article-instance">
-      <img
-        src={articleObject.article_img_url}
-        alt={`Image of ${articleObject.title}`}
-      />
-      <p className="article-title">{articleObject.title}</p>
-      <hr></hr>
-      <div className="other-info">
-        <p>Author : {articleObject.author}</p>
-        <p>Topic : {articleObject.topic}</p>
-        <p>Created : {formattedDate}</p>
-        <p>comments : {articleObject.comment_count}</p>
-        <p>votes : {articleObject.votes}</p>
-      </div>
+      <a href={articleLink}>
+        <img
+          src={articleObject.article_img_url}
+          alt={`Image of ${articleObject.title}`}
+        />
+        <p className="article-title">{articleObject.title}</p>
+        <hr></hr>
+        <div className="other-info">
+          <p>Author : {articleObject.author}</p>
+          <p>Topic : {articleObject.topic}</p>
+          <p>Created : {formattedDate}</p>
+          <p>comments : {articleObject.comment_count}</p>
+          <p>votes : {articleObject.votes}</p>
+        </div>
+      </a>
     </div>
   );
 };

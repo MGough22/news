@@ -5,7 +5,7 @@ export const Header = () => {
       <nav>
         <ul className="links-list">
           <li>
-            <a href="#">Articles</a>
+            <a href="/">Articles</a>
           </li>
           <li>
             <a href="#">Authors</a>

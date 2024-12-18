@@ -51,6 +51,11 @@
   transition: border-color, background-color 0.25s;
 }
 
+.article-instance a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .article-instance img {
   max-width: 100%;
   height: auto;

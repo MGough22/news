@@ -2,14 +2,17 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ArticleList } from "./components/ArticleList";
+import { Routes, Route } from "react-router";
+import { SingleArticleView } from "./components/SingleArticleView";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Header />
-      <ArticleList />
+      <Routes>
+        <Route path="/" element={<ArticleList />} />
+        <Route path="articles/:article_id" element={<SingleArticleView />} />
+      </Routes>
       <Footer />
     </>
   );
