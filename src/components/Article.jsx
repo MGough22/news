@@ -12,11 +12,10 @@ export const Article = ({ articleObject }) => {
         <p className="article-title">{articleObject.title}</p>
         <hr></hr>
         <div className="other-info">
-          <p>Author : {articleObject.author}</p>
-          <p>Topic : {articleObject.topic}</p>
-          <p>Created : {formatCreatedAtDate(articleObject.created_at)}</p>
-          <p>comments : {articleObject.comment_count}</p>
-          <p>votes : {articleObject.votes}</p>
+          <p>
+            By {articleObject.author} | In {articleObject.topic}
+          </p>
+          <p>{formatCreatedAtDate(articleObject.created_at)}</p>
         </div>
       </Link>
     </div>
