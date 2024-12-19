@@ -60,7 +60,7 @@ export const SingleArticleView = () => {
   };
 
   const commentSectionTitle = commentVisbility => {
-    return commentVisbility ? "Hide comments" : "Show comments";
+    return commentVisbility ? "Hide comments -" : "Show comments +";
   };
 
   if (isLoading)

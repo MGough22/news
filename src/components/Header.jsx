@@ -11,7 +11,7 @@ export const Header = () => {
             <Link to="/">Articles</Link>
           </li>
           <li>
-            <a href="#">Authors</a>
+            <Link to="/authors">Authors</Link>
           </li>
           <li>
             <a href="#">Topics</a>

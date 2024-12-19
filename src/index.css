@@ -134,3 +134,41 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.authors-view {
+  padding-inline: 18vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  margin-top: 3%;
+}
+
+.author-instance {
+  border: 1px solid hsla(0, 0%, 80%, 0);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+  margin: 10px;
+  max-width: 250px;
+  overflow: hidden;
+  height: auto;
+  cursor: pointer;
+  transition: border-color, background-color 0.25s;
+}
+
+.author-instance img {
+  width: 130px;
+  height: 130px;
+  filter: sepia(60%) saturate(110%);
+  transition: filter 0.3s ease;
+}
+
+.author-instance:hover img {
+  filter: saturate(200%);
+}
+
+.author-instance:hover {
+  border-color: hsla(186, 27%, 22%, 0.588);
+}
