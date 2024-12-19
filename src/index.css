@@ -122,6 +122,12 @@ a {
   padding-inline: 10vw;
 }
 
+button {
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+}
+
 .loading-anim {
   display: flex;
   justify-content: center;

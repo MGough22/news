@@ -12,6 +12,12 @@ export const SingleArticleView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { article_id } = useParams();
+  const [commentVisbility, setCommentvisibility] = useState(true);
+
+  const handleCommentVisibility = e => {
+    e.preventDefault();
+    setCommentvisibility(!commentVisbility);
+  };
 
   useEffect(() => {
     const fetchArticleData = async () => {
@@ -43,6 +49,20 @@ export const SingleArticleView = () => {
     fetchArticleData();
   }, []);
 
+  const commentSection = commentVisbility => {
+    return commentVisbility ? (
+      <div className="comments-view">
+        {comments.map(el => {
+          return <Comment commentObject={el} key={el.comment_id} />;
+        })}
+      </div>
+    ) : null;
+  };
+
+  const commentSectionTitle = commentVisbility => {
+    return commentVisbility ? "Hide comments" : "Show comments";
+  };
+
   if (isLoading)
     return (
       <div className="loading-anim">
@@ -72,12 +92,10 @@ export const SingleArticleView = () => {
           </div>
           <hr></hr>
         </div>
-        <h2>Comments</h2>
-        <div className="comments-view">
-          {comments.map(el => {
-            return <Comment commentObject={el} key={el.comment_id} />;
-          })}
-        </div>
+        <button type="submit" onClick={handleCommentVisibility}>
+          <h2>{commentSectionTitle(commentVisbility)}</h2>
+        </button>
+        {commentSection(commentVisbility)}
       </div>
     );
   }
