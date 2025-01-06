@@ -119,6 +119,11 @@ a {
   padding-inline: 10vw;
 }
 
+.article-footer {
+  display: flex;
+  gap: 10px;
+}
+
 .article-and-comments h2 {
   padding-inline: 10vw;
 }

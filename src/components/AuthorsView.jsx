@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { hatch } from "ldrs";
 import { AuthorCard } from "./AuthorCard";
+import { getUsers } from "../api";
 
 hatch.register();
 
@@ -9,26 +10,19 @@ export const AuthorsView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchAuthors = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getUsers();
+      setAuthors(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchAuthors = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `https://res-borealis.onrender.com/api/users`
-        );
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch data, error type: ${response.status}`
-          );
-        }
-        const userObjects = await response.json();
-        setAuthors(userObjects);
-      } catch (error) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchAuthors();
   }, []);
 
@@ -39,13 +33,11 @@ export const AuthorsView = () => {
       </div>
     );
   if (error) return <p>Error: {error}</p>;
-  if (!isLoading) {
-    return (
-      <div className="authors-view">
-        {authors.users.map(el => {
-          return <AuthorCard authorObject={el} key={el.username} />;
-        })}
-      </div>
-    );
-  }
+  return (
+    <div className="authors-view">
+      {authors.users.map(el => {
+        return <AuthorCard authorObject={el} key={el.username} />;
+      })}
+    </div>
+  );
 };

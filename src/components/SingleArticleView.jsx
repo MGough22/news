@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { formatCreatedAtDate } from "../utils/formatDate";
 import { Comment } from "./Comment";
 import { hatch } from "ldrs";
+import { getArticleComments, getArticleData } from "../api";
 
 hatch.register();
 
@@ -12,40 +13,30 @@ export const SingleArticleView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { article_id } = useParams();
-  const [commentVisbility, setCommentvisibility] = useState(true);
+  const [commentVisbility, setCommentVisibility] = useState(true);
 
   const handleCommentVisibility = e => {
     e.preventDefault();
-    setCommentvisibility(!commentVisbility);
+    setCommentVisibility(!commentVisbility);
+  };
+
+  const fetchArticleData = async () => {
+    try {
+      setIsLoading(true);
+      const articleResponse = await getArticleData(article_id);
+      const commentResponse = await getArticleComments(article_id);
+      const { article } = articleResponse.data;
+      const { comments } = commentResponse.data;
+      setArticle(article);
+      setComments(comments);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchArticleData = async () => {
-      try {
-        setIsLoading(true);
-        const articleResponse = await fetch(
-          `https://res-borealis.onrender.com/api/articles/${article_id}`
-        );
-        const commentResponse = await fetch(
-          `https://res-borealis.onrender.com/api/articles/${article_id}/comments`
-        );
-        if (!articleResponse.ok || !commentResponse.ok) {
-          throw new Error(
-            `Failed to fetch data, error type: ${
-              articleResponse.status || commentResponse.status
-            }`
-          );
-        }
-        const { article } = await articleResponse.json();
-        const { comments } = await commentResponse.json();
-        setArticle(article);
-        setComments(comments);
-      } catch (error) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchArticleData();
   }, []);
 
@@ -59,8 +50,10 @@ export const SingleArticleView = () => {
     ) : null;
   };
 
-  const commentSectionTitle = commentVisbility => {
-    return commentVisbility ? "Hide comments -" : "Show comments +";
+  const commentSectionTitle = (commentVisbility, numberOfComments) => {
+    return commentVisbility
+      ? `Hide ${numberOfComments} comments -`
+      : `Show ${numberOfComments} comments +`;
   };
 
   if (isLoading)
@@ -86,14 +79,20 @@ export const SingleArticleView = () => {
             <p>{article.body}</p>
           </div>
           <div className="article-footer">
-            <p>
-              Votes {article.votes} | comments {article.comment_count}
-            </p>
+            <p>Votes {article.votes}</p>
+            <button className="upvote" type="submit">
+              ▲ Upvote
+            </button>
+            <button className="downvote" type="submit">
+              ▼ Downvote
+            </button>
           </div>
           <hr></hr>
         </div>
         <button type="submit" onClick={handleCommentVisibility}>
-          <h2>{commentSectionTitle(commentVisbility)}</h2>
+          <h2>
+            {commentSectionTitle(commentVisbility, article.comment_count)}
+          </h2>
         </button>
         {commentSection(commentVisbility)}
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Article } from "./Article";
 import { hatch } from "ldrs";
+import { getArticles } from "../api";
 
 hatch.register();
 
@@ -9,26 +10,19 @@ export const ArticleList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchArticles = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getArticles();
+      setArticles(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `https://res-borealis.onrender.com/api/articles`
-        );
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch data, error type: ${response.status}`
-          );
-        }
-        const arrayOfarticleObjects = await response.json();
-        setArticles(arrayOfarticleObjects);
-      } catch (error) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchArticles();
   }, []);
 
@@ -39,13 +33,11 @@ export const ArticleList = () => {
       </div>
     );
   if (error) return <p>Error: {error}</p>;
-  if (!isLoading) {
-    return (
-      <div className="article-collection">
-        {articles.articles.map(el => {
-          return <Article articleObject={el} key={el.article_id} />;
-        })}
-      </div>
-    );
-  }
+  return (
+    <div className="article-collection">
+      {articles.articles.map(el => {
+        return <Article articleObject={el} key={el.article_id} />;
+      })}
+    </div>
+  );
 };
